@@ -18,7 +18,7 @@
 ### Association
 
 - has_many :items
-- has_many :deals
+- has_many :deal
 
 
 
@@ -39,7 +39,7 @@
 ### Association
 
 - has_many :addresses
-- has_one :deals
+- has_one :deal
 
 
 

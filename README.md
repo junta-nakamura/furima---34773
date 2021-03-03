@@ -18,7 +18,6 @@
 ### Association
 
 - has_many :items
-- has_many :addresses
 - has_many :deals
 
 
@@ -39,9 +38,8 @@
 
 ### Association
 
-- belongs_to :user
 - has_many :addresses
-- has_many :deals
+- has_one :deals
 
 
 
@@ -64,6 +62,7 @@
 
 | Column         | Type       | Options                        |
 |--------------- | ---------- |------------------------------- |
+| postal_code    | string     | null: false                    |
 | location_id    | integer    | null: false                    |
 | municipalities | string     | null: false                    |
 | address        | string     | null: false                    |
@@ -73,6 +72,4 @@
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
 - belongs_to :deal

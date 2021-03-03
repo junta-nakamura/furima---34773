@@ -38,7 +38,7 @@
 
 ### Association
 
-- has_many :addresses
+- belongs_to :user
 - has_one :deal
 
 

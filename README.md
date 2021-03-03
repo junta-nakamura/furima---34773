@@ -18,7 +18,7 @@
 ### Association
 
 - has_many :items
-- has_many :deal
+- has_many :deals
 
 
 

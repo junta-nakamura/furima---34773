@@ -24,6 +24,7 @@ class Item < ApplicationRecord
   PRICE_REGEX = /\A[0-9]+\z/
   validates_format_of :price, with: PRICE_REGEX, message: "Half-width number"
 
+  
 end
 
 

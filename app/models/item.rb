@@ -8,31 +8,22 @@ class Item < ApplicationRecord
   
   has_one_attached :image
   
-  validates :image,           presence: true
-  validates :product_name,    presence: true
-  validates :detail,          presence: true
-  validates :category_id,     presence: true  
-  validates :status_id,       presence: true
-  validates :delivery_fee_id, presence: true
-  validates :prefectures_id,  presence: true
-  validates :days_id,         presence: true
-  validates :price,           presence: true
-  validates :price,           numericality: {greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
+  with_options presence: true do
+    validates :image
+    validates :product_name
+    validates :detail
+    validates :category_id  
+    validates :status_id
+    validates :delivery_fee_id
+    validates :prefectures_id
+    validates :days_id
+    validates :price
+    validates :price, numericality: {greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
+  end
+
   PRICE_REGEX = /\A[0-9]+\z/
   validates_format_of :price, with: PRICE_REGEX, message: "Half-width number"
 
 end
-  # with_options presence: true, format: { with: /\A[0-9]+\z/ } do
-  #   validates :price
-  # end
-
-  # with_options presence: true,
-  #              numericality: {greater_than_or_equal_to: 300},
-  #              numericality: {less_than_or_equal_to: 9999999},
-  #              format: { with: /\A[0-9]+\z/ } do
-  #   validates :price, message: 'Half-width number'
-  # end
-
-
 
 

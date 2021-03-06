@@ -47,9 +47,9 @@ RSpec.describe Item, type: :model do
     end
 
     it '発送までの日数が空では出品できない' do
-      @item.days_id = ""
+      @item.delivery_day_id = ""
       @item.valid?
-      expect(@item.errors.full_messages).to include("Days can't be blank")
+      expect(@item.errors.full_messages).to include("Delivery day can't be blank")
     end
 
     it '販売価格が空では出品できない' do

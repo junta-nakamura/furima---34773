@@ -2,7 +2,8 @@ class ItemsController < ApplicationController
 before_action :authenticate_user!, except: :index
   
   def index
-    @items = Item.all.order("updated_at DESC")
+    # @items = Item.all.order("updated_at DESC")
+    @item = Item.new
   end
 
   def new

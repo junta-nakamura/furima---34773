@@ -1,12 +1,13 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-    belongs_to_active_hash :category
-    belongs_to_active_hash :status
-    belongs_to_active_hash :delivery_fee
-    belongs_to_active_hash :prefecture
-    belongs_to_active_hash :day
-  
-  has_one_attached :image
+    belongs_to :category
+    belongs_to :status
+    belongs_to :delivery_fee
+    belongs_to :prefecture
+    belongs_to :delivery_day
+    
+    belongs_to :user
+    has_one_attached :image
   
   with_options presence: true do
     validates :image
@@ -15,8 +16,8 @@ class Item < ApplicationRecord
     validates :category_id  
     validates :status_id
     validates :delivery_fee_id
-    validates :prefectures_id
-    validates :days_id
+    validates :prefecture_id
+    validates :delivery_day_id
     validates :price
     validates :price, numericality: {greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
   end
@@ -26,5 +27,3 @@ class Item < ApplicationRecord
 
   
 end
-
-

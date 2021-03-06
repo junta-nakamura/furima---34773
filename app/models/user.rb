@@ -1,8 +1,11 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  has_many :items
 
   validates :nickname, presence: true
+  validates :birthday, presence: true
 
   with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ } do
     validates :first_name_kanji
@@ -14,7 +17,6 @@ class User < ApplicationRecord
     validates :last_name_kana
   end
 
-  validates :birthday, presence: true
   
 
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze

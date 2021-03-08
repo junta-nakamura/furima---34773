@@ -36,7 +36,7 @@ class DealsController < ApplicationController
   def first_action
     @item = Item.find(params[:item_id])
   end
-
+  
   def move_to_root
     if !@item.deal.blank? || current_user == @item.user
       redirect_to root_path

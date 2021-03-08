@@ -1,5 +1,6 @@
 class DealsController < ApplicationController
   before_action :authenticate_user!
+  before_action :first_action
   before_action :move_to_root
 
   def index
@@ -8,7 +9,6 @@ class DealsController < ApplicationController
 
   def create
     @address_deal = AddressDeal.new(deal_params)
-    @item = Item.find(params[:item_id])
     if @address_deal.valid?(payjp)
       @address_deal.save
       redirect_to root_path
@@ -33,8 +33,11 @@ class DealsController < ApplicationController
       )
   end
 
-  def move_to_root
+  def first_action
     @item = Item.find(params[:item_id])
+  end
+
+  def move_to_root
     if !@item.deal.blank? || current_user == @item.user
       redirect_to root_path
     end

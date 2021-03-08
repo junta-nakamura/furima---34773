@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe AddressDeal, type: :model do
   describe '商品購入機能' do
     before do
-      @address_deal = FactoryBot.build(:address_deal)
+      @user = FactoryBot.build(:user)
+      @item = FactoryBot.build(:item)
+      @address_deal = FactoryBot.build(:address_deal, user_id: @user, item_id: @item)
     end
     
     it '必要な情報を正しく入力すると購入できる' do
@@ -33,6 +35,18 @@ RSpec.describe AddressDeal, type: :model do
       @address_deal.valid?
       expect(@address_deal.errors.full_messages).to include("Phone can't be blank")
     end
+
+    it '電話番号が半角数字でないと購入できない' do
+      @address_deal.phone = "０１２３４５６７８９"
+      @address_deal.valid?
+      expect(@address_deal.errors.full_messages).to include("Phone Input only number")
+    end
+
+    it '電話番号が半角数字のみでないと購入できない' do
+      @address_deal.phone = "０１２３４56789"
+      @address_deal.valid?
+      expect(@address_deal.errors.full_messages).to include("Phone Input only number")
+    end
   
     it 'トークンが空では購入できない' do
       @address_deal.token = ""
@@ -57,5 +71,23 @@ RSpec.describe AddressDeal, type: :model do
       @address_deal.valid?
       expect(@address_deal.errors.full_messages).to include("Phone Input only number")
     end
+
+    it '建物名の記述がなくても購入できる' do
+      @address_deal.building = ""
+      expect(@address_deal).to be_valid 
+    end
+
+    it 'user_idが空では購入できない' do
+      @address_deal.user_id = ""
+      @address_deal.valid?
+      expect(@address_deal.errors.full_messages).to include("User can't be blank")
+    end
+
+    it 'item_idが空では購入できない' do
+      @address_deal.item_id = ""
+      @address_deal.valid?
+      expect(@address_deal.errors.full_messages).to include("Item can't be blank")
+    end
+
   end
 end

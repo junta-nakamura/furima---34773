@@ -1,7 +1,6 @@
 class DealsController < ApplicationController
   before_action :authenticate_user!
   before_action :move_to_root
-  before_action :first_action, only: :index
 
   def index
     @address_deal = AddressDeal.new
@@ -10,13 +9,7 @@ class DealsController < ApplicationController
   def create
     @address_deal = AddressDeal.new(deal_params)
     @item = Item.find(params[:item_id])
-    if @address_deal.valid?
-      Payjp.api_key = "sk_test_97517dfe6af5a88e23fd8fa0"
-      Payjp::Charge.create(
-        amount: @item.price,
-        card: deal_params[:token],
-        currency: 'jpy'
-      )
+    if @address_deal.valid?(payjp)
       @address_deal.save
       redirect_to root_path
     else
@@ -31,8 +24,13 @@ class DealsController < ApplicationController
     .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
-  def first_action
-    @item = Item.find(params[:item_id])
+  def payjp
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: deal_params[:token],
+        currency: 'jpy'
+      )
   end
 
   def move_to_root

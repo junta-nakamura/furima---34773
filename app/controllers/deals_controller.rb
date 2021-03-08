@@ -23,7 +23,8 @@ class DealsController < ApplicationController
 
   private
   def deal_params
-    params.require(:address_deal).permit(:postal_code, :prefecture_id, :municipalities, :house_number, :building, :phone, :deal_id).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:address_deal).permit(:postal_code, :prefecture_id, :municipalities, :house_number, :building, :phone, :deal_id)\
+    .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def move_to_root

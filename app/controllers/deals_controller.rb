@@ -4,9 +4,6 @@ class DealsController < ApplicationController
 
   def index
     @address_deal = AddressDeal.new
-    if current_user == @item.user
-     redirect_to root_path
-    end
   end
 
   def create
@@ -28,8 +25,11 @@ class DealsController < ApplicationController
 
   def move_to_root
     @item = Item.find(params[:item_id])
-    if !@item.deal.blank?
+    if !@item.deal.blank? || current_user == @item.user
       redirect_to root_path
     end
   end
+
 end
+
+

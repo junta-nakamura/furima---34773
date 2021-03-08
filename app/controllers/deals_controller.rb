@@ -4,7 +4,6 @@ class DealsController < ApplicationController
 
   def index
     @address_deal = AddressDeal.new
-    @item = Item.find(params[:item_id])
     if current_user == @item.user
      redirect_to root_path
     end

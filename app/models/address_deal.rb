@@ -1,12 +1,12 @@
 class AddressDeal
   include ActiveModel::Model
   attr_accessor :postal_code, :prefecture_id, :municipalities, :house_number,
-                :building, :phone, :deal_id, :user_id, :item_id, :token
+                :building, :phone, :user_id, :item_id, :token
 
   with_options presence: true do
     validates :token
     validates :postal_code
-    validates :prefecture_id
+    validates :prefecture_id, numericality: {greater_than_or_equal_to: 1, less_than_or_equal_to: 47}
     validates :municipalities
     validates :house_number
     validates :phone

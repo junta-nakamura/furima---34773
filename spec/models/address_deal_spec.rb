@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe AddressDeal, type: :model do
   describe '商品購入機能' do
     before do
-      @user = FactoryBot.build(:user)
-      @item = FactoryBot.build(:item)
-      @address_deal = FactoryBot.build(:address_deal, user_id: @user, item_id: @item)
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @address_deal = FactoryBot.build(:address_deal, user_id: @user.id, item_id: @item.id)
+      sleep 0.1
     end
     
     it '必要な情報を正しく入力すると購入できる' do

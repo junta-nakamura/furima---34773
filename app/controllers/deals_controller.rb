@@ -9,7 +9,8 @@ class DealsController < ApplicationController
 
   def create
     @address_deal = AddressDeal.new(deal_params)
-    if @address_deal.valid?(payjp)
+    if @address_deal.valid?
+      payjp
       @address_deal.save
       redirect_to root_path
     else
@@ -26,10 +27,10 @@ class DealsController < ApplicationController
 
   def payjp
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-      Payjp::Charge.create(
-        amount: @item.price,
-        card: deal_params[:token],
-        currency: 'jpy'
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: deal_params[:token],
+      currency: 'jpy'
       )
   end
 

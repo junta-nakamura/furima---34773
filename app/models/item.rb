@@ -26,4 +26,5 @@ class Item < ApplicationRecord
   validates_format_of :price, with: PRICE_REGEX, message: "Half-width number"
 
   
+  
 end
